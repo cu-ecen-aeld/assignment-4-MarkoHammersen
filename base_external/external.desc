@@ -1,2 +1,2 @@
 name: project_base
-desc: Assignment 4 external Buildroot packages
+description: Base customization for project
