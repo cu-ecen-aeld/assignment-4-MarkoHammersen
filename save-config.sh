@@ -8,9 +8,14 @@ mkdir -p base_external/configs/
 make -C buildroot savedefconfig BR2_DEFCONFIG=${AESD_MODIFIED_DEFCONFIG_REL_BUILDROOT}
 
 if [ -e buildroot/.config ] && [ -e buildroot/output/build/linux-*/.config ]; then
+	echo "Buildroot configuration saved to ${AESD_MODIFIED_DEFCONFIG}"
 	grep "BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE" buildroot/.config > /dev/null
 	if [ $? -eq 0 ]; then
 		echo "Saving linux defconfig"
 		make -C buildroot linux-update-defconfig
+	else
+		echo "No custom linux kernel configuration to save."
 	fi
+else
+	echo "Buildroot configuration or linux kernel configuration missing, cannot save."
 fi
